@@ -5,9 +5,10 @@
     font-family: 'Inter', sans-serif;
 }
 
+/* HEADER */
 .header {
     padding: 1.5rem 2rem;
-    border-bottom: 1px solid #ff3d3d33;
+    border-bottom: 1px solid #ff85c133;
 }
 
 .nav {
@@ -19,7 +20,7 @@
     cursor: pointer;
     font-weight: 600;
     transition: all 0.2s;
-    color: #ff6b6b;
+    color: #ff85c1;
     padding: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -27,10 +28,11 @@
 }
 
 .nav-item:hover {
-    color: #ff3d3d;
-    text-shadow: 0 0 8px rgba(255, 61, 61, 0.3);
+    color: #ff6bb5;
+    text-shadow: 0 0 10px rgba(255, 107, 181, 0.4);
 }
 
+/* MAIN CONTENT */
 .main-content {
     display: grid;
     grid-template-columns: 0.6fr 1.4fr;
@@ -61,8 +63,8 @@
 }
 
 .title-rage {
-    color: #ff3d3d;
-    text-shadow: 0 0 10px rgba(255, 61, 61, 0.5);
+    color: #ff85c1;
+    text-shadow: 0 0 12px rgba(255, 133, 193, 0.5);
     font-weight: 900;
 }
 
@@ -71,30 +73,37 @@
     font-weight: 300;
 }
 
+/* DESCRIPTION BOX */
 .description-box {
     background: linear-gradient(145deg, #1a1a1a, #151515);
     border-radius: 8px;
     padding: 1.5rem;
-    border-left: 3px solid #ff3d3d;
+    border-left: 3px solid #ff6bb5;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     flex-grow: 1;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    line-height: 1.5;
 }
 
 .highlight-line {
     font-weight: 700;
-    color: #ff6b6b;
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-    line-height: 1.4;
+    color: #ff85c1;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
 }
 
 .privacy-line {
-    font-style: italic;
+    font-weight: 600;
     color: #8a9bff;
-    margin-top: 1.5rem;
-    font-size: 0.85rem;
+    font-size: 1rem;
+    margin-top: 1.2rem;
+    line-height: 1.5;
 }
 
+/* PERSONALITY SECTION */
 .personality-section {
     padding: 0 0.5rem;
     height: 100%;
@@ -111,7 +120,7 @@
 
 .section-title {
     font-size: 1.3rem;
-    color: #ff3d3d;
+    color: #ff85c1;
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -120,32 +129,35 @@
 
 .personality-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
     height: 100%;
     overflow-y: auto;
     padding-right: 0.5rem;
 }
 
+/* PERSONALITY CARD */
 .personality-card {
     background: linear-gradient(145deg, #1e1e1e, #191919);
     border-radius: 8px;
     padding: 1rem;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s ease;
     border: 1px solid;
     cursor: pointer;
-    min-height: 140px;
+    min-height: 180px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .personality-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 12px rgba(255, 133, 193, 0.25), 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-color: #ff85c1;
 }
 
 .personality-card.selected {
-    background: linear-gradient(145deg, #2a1a1a, #251515);
-    box-shadow: 0 0 0 2px #ff3d3d, 0 8px 20px rgba(255, 61, 61, 0.3);
+    background: linear-gradient(145deg, #2a2025, #251b20);
+    box-shadow: 0 0 0 2px #ff85c1, 0 0 25px rgba(255, 133, 193, 0.4);
+    border-color: #ff85c1;
 }
 
 .emoji {
@@ -155,21 +167,28 @@
     transition: all 0.3s;
 }
 
+.personality-card:hover .emoji {
+    transform: scale(1.1) rotate(5deg);
+}
+
 .personality-card h3 {
     font-size: 0.95rem;
     margin-bottom: 0.5rem;
     font-weight: 700;
+    color: #ff85c1;
 }
 
 .personality-description {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     color: #b0b0b0;
-    line-height: 1.4;
+    line-height: 1.5;
+    font-family: 'Inter', sans-serif;
 }
 
+/* CHAT BUTTON */
 .chat-button {
     background-color: #2a2a2a;
-    color: #666;
+    color: #888;
     border: none;
     padding: 0.7rem 1.5rem;
     border-radius: 6px;
@@ -186,17 +205,17 @@
 }
 
 .chat-button.active {
-    background-color: #ff3d3d;
+    background-color: #ff85c1;
     color: #121212;
     cursor: pointer;
-    box-shadow: 0 0 0 2px #ff3d3d, 0 0 20px rgba(255, 61, 61, 0.5);
+    box-shadow: 0 0 0 2px #ff85c1, 0 0 20px rgba(255, 133, 193, 0.6);
     animation: pulse 1.5s infinite;
     font-weight: 800;
-    border: 1px solid #ff3d3d;
+    border: 1px solid #ff85c1;
 }
 
 .chat-button.active:hover {
-    background-color: #ff5252;
+    background-color: #ff9bcd;
     transform: translateY(-2px);
 }
 
@@ -204,19 +223,20 @@
     font-size: 1.1rem;
 }
 
+/* PULSE ANIMATION */
 @keyframes pulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(255, 61, 61, 0.7), 0 0 0 2px #ff3d3d;
+        box-shadow: 0 0 0 0 rgba(255, 133, 193, 0.6), 0 0 0 2px #ff85c1;
     }
     70% {
-        box-shadow: 0 0 0 10px rgba(255, 61, 61, 0), 0 0 0 2px #ff3d3d;
+        box-shadow: 0 0 0 10px rgba(255, 133, 193, 0), 0 0 0 2px #ff85c1;
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(255, 61, 61, 0), 0 0 0 2px #ff3d3d;
+        box-shadow: 0 0 0 0 rgba(255, 133, 193, 0), 0 0 0 2px #ff85c1;
     }
 }
 
-/* Custom scrollbar */
+/* CUSTOM SCROLLBAR */
 .personality-grid::-webkit-scrollbar {
     width: 6px;
 }
@@ -226,34 +246,24 @@
 }
 
 .personality-grid::-webkit-scrollbar-thumb {
-    background-color: #ff3d3d;
+    background-color: #ff85c1;
     border-radius: 3px;
 }
 
-@media (max-width: 1200px) {
+/* RESPONSIVE LAYOUT */
+@media (max-width: 1400px) {
+    .personality-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
     .personality-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (max-width: 900px) {
-    .main-content {
-        grid-template-columns: 1fr;
-        height: auto;
-    }
-    
-    .brand-section {
-        position: static;
-        margin-bottom: 2rem;
-        padding-right: 0;
-    }
-    
-    .personality-section {
-        height: auto;
-    }
-}
-
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     .personality-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -262,19 +272,5 @@
 @media (max-width: 500px) {
     .personality-grid {
         grid-template-columns: 1fr;
-    }
-    
-    .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .chat-button {
-        width: 100%;
-    }
-    
-    .ventai-title {
-        font-size: 2.8rem;
     }
 }

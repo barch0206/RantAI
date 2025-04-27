@@ -1,2 +1,2 @@
-rant ai 
+ai 
 (work in progress)

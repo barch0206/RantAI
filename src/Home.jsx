@@ -7,59 +7,33 @@ const Home = () => {
     const personalities = [
         {
             id: 1,
-            name: 'Grumpy Old Man',
-            emoji: '👴🏼💢',
-            description: 'Cranky "back in my day" complaints about modern life',
-            color: '#ff6b6b'
+            name: 'F-Bomb Machine',
+            emoji: '💣',
+            description: 'Raw, unfiltered responses loaded with expletives and intense emotional validation. Perfect for uncensored fury without judgment.',
         },
         {
             id: 2,
-            name: 'Passionate Activist',
-            emoji: '✊🏽',
-            description: 'Righteous indignation against injustice',
-            color: '#ff8e8e'
+            name: 'Corporate Rage',
+            emoji: '👔💢',
+            description: 'Bitter, cynical office veteran validating workplace frustrations with sarcastic takedowns and dark office humor.',
         },
         {
             id: 3,
-            name: 'Corporate Burnout',
-            emoji: '👨🏽‍💼☕',
-            description: 'Sarcastic workplace humor',
-            color: '#ff9e76'
+            name: 'Grumpy Old Man',
+            emoji: '👴🏼💢',
+            description: 'Cantankerous responses full of "back in my day" complaints about modern inconveniences and "kids these days".',
         },
         {
             id: 4,
-            name: 'Rage Gamer',
-            emoji: '🎮💢',
-            description: 'Expletive-filled competitive frustration',
-            color: '#ff6b6b'
+            name: 'Emo Girl',
+            emoji: '🖤',
+            description: 'Darkly cynical, world-weary responses validating how everything is ultimately meaningless and disappointing.',
         },
         {
             id: 5,
-            name: 'Snarky Critic',
-            emoji: '🤨',
-            description: 'Biting, sarcastic commentary',
-            color: '#ff8e8e'
-        },
-        {
-            id: 6,
-            name: 'Traffic Ranter',
-            emoji: '🚗💨',
-            description: 'Road rage validation specialist',
-            color: '#ff9e76'
-        },
-        {
-            id: 7,
             name: 'The Quiet Mourner',
             emoji: '🕊️',
-            description: 'Gentle understanding for grief',
-            color: '#8a9bff'
-        },
-        {
-            id: 8,
-            name: 'Melancholy Poet',
-            emoji: '📜',
-            description: 'Contemplative expressions of sadness',
-            color: '#8a9bff'
+            description: 'Gentle responses acknowledging deep pain without rushing the process. Validates that some losses can\'t be fixed, only carried.',
         }
     ];
 
@@ -85,10 +59,12 @@ const Home = () => {
                         <span className="title-ai">AI</span>
                     </h1>
                     <div className="description-box">
-                        <p className="highlight-line">Your unfiltered emotional outlet for rage, grief, and everything in between</p>
-                        <p>• Scream into the void and hear it scream back •</p>
-                        <p>• No judgment • No advice • Just validation •</p>
-                        <p className="privacy-line">100% anonymous - your rants disappear like steam</p>
+                        <p className="highlight-line">Your judgment-free space to rant, vent, rage, grieve, or express any emotional state.</p>
+                        <p className="privacy-line">100% private — we don't store your personal information or conversations.</p>
+                        <p className="highlight-line">Our AI validates your feelings, matches your mood, and never tries to fix your problems.</p>
+                        <p className="privacy-line">Express yourself freely — our AI responds with matching emotion, not unwanted advice.</p>
+                        <p className="highlight-line">When real-world listeners aren't available or understanding, Rant AI is here for your unfiltered emotions.</p>
+                        <p className="privacy-line">Sometimes you just need someone to agree you're right — that's what we're here for.</p>
                     </div>
                 </div>
 
@@ -100,7 +76,7 @@ const Home = () => {
                             onClick={handleStartChatting}
                             disabled={!selectedPersonality}
                         >
-                            <span className="button-icon">💥</span> UNLEASH RAGE
+                             Chat with AI.
                         </button>
                     </div>
                     
@@ -110,10 +86,9 @@ const Home = () => {
                                 key={personality.id} 
                                 className={`personality-card ${selectedPersonality?.id === personality.id ? 'selected' : ''}`}
                                 onClick={() => setSelectedPersonality(personality)}
-                                style={{ borderColor: personality.color }}
                             >
-                                <span className="emoji" style={{ color: personality.color }}>{personality.emoji}</span>
-                                <h3 style={{ color: personality.color }}>{personality.name}</h3>
+                                <span className="emoji">{personality.emoji}</span>
+                                <h3>{personality.name}</h3>
                                 <p className="personality-description">{personality.description}</p>
                             </div>
                         ))}

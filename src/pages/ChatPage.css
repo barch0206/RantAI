@@ -1,16 +1,20 @@
 .chat-page {
     display: flex;
     min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #2b2f3f, #1b1e2f); /* Darker gradient background */
+    color: #e0e0e0; /* Lighter text for better readability */
 }
 
 .left-section {
-    width: 40%;  /* Left section takes 40% of the screen */
-    background-color: #2a2a2a;
-    color: #f0f0f0;
+    width: 40%;
+    background-color: #1b1e2f; /* Dark blueish background */
+    color: #e0e0e0; /* Light text color */
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    box-shadow: 2px 0 10px rgba(255, 105, 180, 0.1);
 }
 
 .left-content {
@@ -28,34 +32,36 @@
 .image {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .disclaimer {
     margin-bottom: 20px;
     font-size: 14px;
-    color: #888;
+    color: #bbb;
+    font-style: italic;
 }
 
 .chat-button {
-    background-color: #ff6b6b;
+    background: linear-gradient(135deg, #ff6ba1, #c74dff);
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     margin-top: 20px;
+    align-self: flex-start; /* Position the button to the top-left */
 }
 
 .chat-button:hover {
-    background-color: #ff3d3d;
+    background: linear-gradient(135deg, #ff4181, #a436ff);
 }
 
 .right-section {
-    width: 60%;  /* Right section takes 60% of the screen */
-    background-color: #1e1e1e;
+    width: 60%;
+    background-color: #151720; /* Darker background for the right section */
     color: #f0f0f0;
     padding: 20px;
     display: flex;
@@ -64,36 +70,49 @@
 }
 
 .chat-content {
-    background-color: #2a2a2a;
+    background-color: #1e222e; /* Darker background for chat content */
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-bottom: 20px;
     width: 100%;
     max-width: 600px;
     overflow-y: auto;
     max-height: 60vh;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.08);
+    border: 2px solid #4f4f4f; /* Added border */
+    display: flex;
+    flex-direction: column; /* Messages appear top-down */
 }
 
 .chat-box {
+    display: flex;
+    flex-direction: column; /* Ensures messages fill from top-down */
     margin-bottom: 20px;
     max-height: 400px;
     overflow-y: auto;
+    flex-grow: 1; /* Allow it to grow and take up space */
 }
 
 .chat-message {
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    background-color: #3a3a3a;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    background-color: #2e2f47;
+    transition: transform 0.2s;
+    color: #f0f0f0; /* Light text for readability */
+}
+
+.chat-message:hover {
+    transform: scale(1.02);
 }
 
 .user-message {
-    background-color: #4e9bff;
+    background-color: #6f95ff; /* Consistent blue tone */
     text-align: left;
 }
 
 .bot-message {
-    background-color: #ff8c00;
+    background-color: #ff6ba1; /* Consistent pink tone */
     text-align: right;
 }
 
@@ -102,32 +121,77 @@
     gap: 10px;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
 }
 
 input {
     padding: 10px;
     width: 70%;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: #333;
+    border-radius: 10px;
+    border: 1px solid #555;
+    background-color: #2a2a2a;
     color: #fff;
+}
+
+input::placeholder {
+    color: #aaa;
 }
 
 .send-button {
     padding: 10px 20px;
     border: none;
-    border-radius: 8px;
-    background-color: #4e9bff;
+    border-radius: 10px;
+    background-color: #6f95ff;
     color: white;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .send-button:hover {
-    background-color: #3578e5;
+    background-color: #4e7be0;
 }
 
 .Fbomber {
-    width: 100%;  /* Makes the image take up 100% of its parent container's width */
-    height: auto; /* Keeps the image's aspect ratio intact */
-    object-fit: cover; /* Ensures the image covers the space while maintaining its aspect ratio */
+    width: 60%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.typing-indicator .dot {
+    margin-right: 5px;
+    font-size: 20px;
+    animation: blink 1s infinite;
+}
+
+.typing-indicator .dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

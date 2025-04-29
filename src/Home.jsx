@@ -7,25 +7,25 @@ const Home = () => {
     const personalities = [
         {
             id: 1,
-            name: 'F-Bomb Machine',
+            name: 'Raging Ray',
             emoji: '💣',
             description: 'Raw, unfiltered responses loaded with expletives and intense emotional validation. Perfect for uncensored fury without judgment.',
         },
         {
             id: 2,
-            name: 'Corporate Rage',
+            name: 'Exhausted Ethan',
             emoji: '👔💢',
-            description: 'Bitter, cynical office veteran validating workplace frustrations with sarcastic takedowns and dark office humor.',
+            description: 'Corporate Rage: Bitter, cynical office veteran validating workplace frustrations with sarcastic takedowns and dark office humor.',
         },
         {
             id: 3,
-            name: 'Grumpy Old Man',
+            name: 'Budget Blake',
             emoji: '👴🏼💢',
-            description: 'Cantankerous responses full of "back in my day" complaints about modern inconveniences and "kids these days".',
+            description: 'Broke and Bitter: A system-hating hustler who understands the struggle of being broke and validates your frustrations with a touch of humor.',                                                
         },
         {
             id: 4,
-            name: 'Emo Girl',
+            name: 'Luna - Emo Girl',
             emoji: '🖤',
             description: 'Darkly cynical, world-weary responses validating how everything is ultimately meaningless and disappointing.',
         },

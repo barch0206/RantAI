@@ -125,3 +125,9 @@ input {
 .send-button:hover {
     background-color: #3578e5;
 }
+
+.Fbomber {
+    width: 100%;  /* Makes the image take up 100% of its parent container's width */
+    height: auto; /* Keeps the image's aspect ratio intact */
+    object-fit: cover; /* Ensures the image covers the space while maintaining its aspect ratio */
+}

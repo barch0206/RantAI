@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ChatPage.css';
+import FBomberImage from '../assets/Fbomber.png';
 
-const ChatPage = () => {
+function ChatPage() {
     const { id } = useParams(); // Get the personality ID from the URL
     const navigate = useNavigate(); // Use navigate for programmatic navigation
+
 
     // Define personalities
     const personalities = [
@@ -19,27 +21,45 @@ const ChatPage = () => {
 
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
-    
-    // Handle message sending
-    const handleSendMessage = () => {
-        if (input.trim() === '') return;
 
-        // Add user message
+    // Handle message sending
+    const handleSendMessage = async () => {
+        if (input.trim() === '') return;
+    
+        const userMessage = input;
+    
+        // Show user message
         setMessages(prevMessages => [
             ...prevMessages,
-            { sender: 'user', text: input }
+            { sender: 'user', text: userMessage }
         ]);
-
-        // Simulate a bot reply after a delay (ChatGPT logic can be added here)
-        setTimeout(() => {
+        setInput('');
+    
+        try {
+            // Send request to backend
+            const response = await fetch('https://sturdy-system-6xx57wx469x3rpjq-5000.app.github.dev/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userMessage, personality: parseInt(id) })
+              });
+              
+    
+            const data = await response.json();
+    
+            // Show bot reply
             setMessages(prevMessages => [
                 ...prevMessages,
-                { sender: 'bot', text: `${input}eeeee`}
+                { sender: 'bot', text: data.reply }
             ]);
-        }, 1000);
-
-        setInput(''); // Clear input
+        } catch (error) {
+            console.error('Error:', error);
+            setMessages(prevMessages => [
+                ...prevMessages,
+                { sender: 'bot', text: 'Oops, something went wrong.' }
+            ]);
+        }
     };
+    
 
     const handleBackToHome = () => {
         navigate('/'); // Navigates back to the home page
@@ -52,8 +72,9 @@ const ChatPage = () => {
                     <h1>{personality ? personality.name : 'Loading...'} - Chat</h1>
                     {/* Left Partition Content (for image, disclaimer, etc.) */}
                     <div className="left-image">
-                        <img src="path_to_image.jpg" alt="Image" className="image" />
-                    </div>
+    <img src={FBomberImage} alt="Fbomber" className="Fbomber" />
+</div>
+
                     <div className="disclaimer">
                         <p>Disclaimer: This is a judgment-free space. Express yourself freely!</p>
                     </div>
@@ -82,8 +103,7 @@ const ChatPage = () => {
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            placeholder="Type a message..."
-                        />
+                            placeholder="Type a message..." />
                         <button onClick={handleSendMessage} className="send-button">
                             Send
                         </button>
@@ -92,6 +112,6 @@ const ChatPage = () => {
             </div>
         </div>
     );
-};
+}
 
 export default ChatPage;

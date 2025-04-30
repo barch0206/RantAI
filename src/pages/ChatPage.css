@@ -2,19 +2,24 @@
     display: flex;
     min-height: 100vh;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #2b2f3f, #1b1e2f); /* Darker gradient background */
-    color: #e0e0e0; /* Lighter text for better readability */
+    background: linear-gradient(135deg, #1a202c, #12151f); /* Darker gradient */
+    color: #f0f0f0; /* Lighter text for readability */
+    max-width: 100vw; /* Prevent horizontal overflow */
+    overflow-x: hidden; /* Hide any accidental overflow */
+    
+    
 }
 
 .left-section {
-    width: 40%;
-    background-color: #1b1e2f; /* Dark blueish background */
-    color: #e0e0e0; /* Light text color */
+    width: 30%; /* Slightly reduced width for left section */
+    background-color: #2d3445; /* Slightly lighter dark background */
+    color: #f0f0f0; /* Light text color */
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    box-shadow: 2px 0 10px rgba(255, 105, 180, 0.1);
+    box-shadow: 2px 0 10px rgba(255, 165, 200, 0.2); /* Brightened shadow */
+    border-right: 2px solid #c5a4d7; /* Brighter border */
 }
 
 .left-content {
@@ -41,9 +46,18 @@
     color: #bbb;
     font-style: italic;
 }
+.chat-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ffd6f6; /* Soft bright pinkish text */
+    border-bottom: 1px solid #c5a4d7;
+    padding-bottom: 5px;
+}
+
 
 .chat-button {
-    background: linear-gradient(135deg, #ff6ba1, #c74dff);
+    background: linear-gradient(135deg, #ff7fa1, #c85eff); /* Brighter gradient */
     color: white;
     padding: 10px 20px;
     border: none;
@@ -52,68 +66,98 @@
     font-size: 16px;
     transition: all 0.3s ease;
     margin-top: 20px;
-    align-self: flex-start; /* Position the button to the top-left */
+    align-self: flex-start;
 }
 
 .chat-button:hover {
-    background: linear-gradient(135deg, #ff4181, #a436ff);
+    background: linear-gradient(135deg, #ff5284, #a63fe0); /* Slightly brighter hover */
 }
 
 .right-section {
-    width: 60%;
-    background-color: #151720; /* Darker background for the right section */
+    width: 70%; /* Adjusted width for the right section */
+    background-color: #1d232e; /* Darkened dark color */
     color: #f0f0f0;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    border-left: 2px solid #c5a4d7; /* Brighter border */
+    overflow: hidden; /* Prevent content from overflowing */
 }
 
 .chat-content {
-    background-color: #1e222e; /* Darker background for chat content */
+    background-color: #2b2e3b; /* Lighter chat background */
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
     width: 100%;
-    max-width: 600px;
+    max-width: 90%; /* Full width for proper fit */
     overflow-y: auto;
-    max-height: 60vh;
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.08);
-    border: 2px solid #4f4f4f; /* Added border */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    max-height: 70vh; /* Allow the chat content area to scroll vertically */
+    box-shadow: 0 0 10px rgba(255, 165, 200, 0.2); /* Softer shadow */
+    border: 2px solid #5f5f5f; /* Slightly lighter border */
     display: flex;
-    flex-direction: column; /* Messages appear top-down */
+    flex-direction: column;
 }
 
 .chat-box {
     display: flex;
-    flex-direction: column; /* Ensures messages fill from top-down */
-    margin-bottom: 20px;
+    flex-direction: column;
+    margin-bottom: 10px;
     max-height: 400px;
+    overflow-x: hidden; /* Prevent horizontal overflow */
     overflow-y: auto;
-    flex-grow: 1; /* Allow it to grow and take up space */
+    flex-grow: 0.8;
 }
 
 .chat-message {
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 12px;
-    background-color: #2e2f47;
-    transition: transform 0.2s;
-    color: #f0f0f0; /* Light text for readability */
-}
-
-.chat-message:hover {
-    transform: scale(1.02);
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 18px;
+    position: relative;
+    color: #f0f0f0;
+    width: auto; /* Allow chat bubbles to adjust to text width */
+    max-width: 80%; /* Maximum width so that they stay within the container */
+    word-wrap: break-word; /* Prevents overflow */
+    display: inline-block;
+    word-break: break-word; /* Prevents overflow on long words */
 }
 
 .user-message {
-    background-color: #6f95ff; /* Consistent blue tone */
-    text-align: left;
+    background-color: #4a5e80; /* Darker blue tone */
+    align-self: flex-end;
+    text-align: right;
+    border: 2px solid #2f3e5c; /* Lighter border for user message */
+    box-shadow: 0 0 5px rgba(0, 90, 255, 0.6); /* Glowing effect */
+}
+
+.user-message::after {
+    content: "";
+    position: absolute;
+    right: -10px;
+    top: 10px;
+    border-width: 10px 0 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent #4a5e80;
 }
 
 .bot-message {
-    background-color: #ff6ba1; /* Consistent pink tone */
-    text-align: right;
+    background-color: #a24d80; /* Darker pinkish/purple tone */
+    align-self: flex-start;
+    text-align: left;
+    border: 2px solid #842a5e; /* Lighter border for bot message */
+    box-shadow: 0 0 15px rgba(255, 0, 150, 0.6); /* Glowing effect */
+}
+
+.bot-message::after {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 10px;
+    border-width: 10px 10px 10px 0;
+    border-style: solid;
+    border-color: transparent #a24d80 transparent transparent;
 }
 
 .input-section {
@@ -128,9 +172,10 @@ input {
     padding: 10px;
     width: 70%;
     border-radius: 10px;
-    border: 1px solid #555;
-    background-color: #2a2a2a;
+    border: 1px solid #777;
+    background: linear-gradient(135deg, #3a3a3a, #2c333d); /* Dark gradient */
     color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Subtle glow */
 }
 
 input::placeholder {
@@ -141,14 +186,15 @@ input::placeholder {
     padding: 10px 20px;
     border: none;
     border-radius: 10px;
-    background-color: #6f95ff;
+    background: linear-gradient(135deg, #5f73a5, #4b5f81); /* Gradient with dark blue */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 90, 255, 0.5); /* Glowing effect */
 }
 
 .send-button:hover {
-    background-color: #4e7be0;
+    background: linear-gradient(135deg, #3f5f89, #334b68); /* Darker hover effect */
 }
 
 .Fbomber {

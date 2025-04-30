@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ChatPage.css';
+
 import FBomberImage from '../assets/Fbomber.png';
+import ExhaustedEthanImg from '../assets/ExhaustedEthan.jpg';
+import BudgetBlakeImg from '../assets/BudgetBlake.jpg';
+import LunaImg from '../assets/LunaEmoGirl.jpg';
+import MournerImg from '../assets/SilentSage.png';
 
 function ChatPage() {
     const { id } = useParams();
@@ -9,11 +14,31 @@ function ChatPage() {
     const chatBoxRef = useRef(null);
 
     const personalities = [
-        { id: 1, name: 'Raging Ray' },
-        { id: 2, name: 'Exhausted Ethan' },
-        { id: 3, name: 'Budget Blake' },
-        { id: 4, name: 'Luna the Emo girl' },
-        { id: 5, name: 'The Quiet Mourner' }
+        {
+            id: 1,
+            name: 'Raging Ray',
+            image: FBomberImage
+        },
+        {
+            id: 2,
+            name: 'Exhausted Ethan',
+            image: ExhaustedEthanImg
+        },
+        {
+            id: 3,
+            name: 'Budget Blake',
+            image: BudgetBlakeImg
+        },
+        {
+            id: 4,
+            name: 'Luna - Emo Girl',
+            image: LunaImg
+        },
+        {
+            id: 5,
+            name: 'Silent Sage',
+            image: MournerImg
+        }
     ];
 
     const personality = personalities.find(p => p.id === parseInt(id));
@@ -21,7 +46,6 @@ function ChatPage() {
     const [input, setInput] = useState('');
     const [isSending, setIsSending] = useState(false);
 
-    // Handle message sending
     const handleSendMessage = async () => {
         if (input.trim() === '') return;
 
@@ -38,8 +62,6 @@ function ChatPage() {
             });
 
             const data = await response.json();
-
-            // Directly add bot response without typing indicator
             setMessages(prev => [...prev, { sender: 'bot', text: data.reply }]);
         } catch (error) {
             console.error('Error:', error);
@@ -57,12 +79,22 @@ function ChatPage() {
         navigate('/');
     };
 
-    // Scroll to the bottom whenever a new message is added
     useEffect(() => {
         if (chatBoxRef.current) {
             chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
         }
     }, [messages]);
+
+    if (!personality) {
+        return (
+            <div className="chat-page">
+                <p style={{ color: 'white', padding: '2rem' }}>Invalid personality ID. Please go back.</p>
+                <button onClick={handleBackToHome} className="chat-button">
+                    Back to Home
+                </button>
+            </div>
+        );
+    }
 
     return (
         <div className="chat-page">
@@ -71,9 +103,9 @@ function ChatPage() {
                     <button onClick={handleBackToHome} className="chat-button">
                         Back to Home
                     </button>
-                    <h1>You are chatting with: {personality ? personality.name : 'Loading...'}</h1>
+                    <h2 className="chat-header">You are chatting with: {personality.name}</h2>
                     <div className="left-image">
-                        <img src={FBomberImage} alt="Fbomber" className="Fbomber" />
+                        <img src={personality.image} alt={personality.name} className="Fbomber" />
                     </div>
                     <div className="disclaimer">
                         <p>Disclaimer: This is a judgment-free space. Express yourself freely!</p>

@@ -49,9 +49,8 @@
     position: sticky;
     top: 1.5rem;
     padding-right: 1rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
 }
 
 .ventai-title {
@@ -85,6 +84,8 @@
     font-size: 0.95rem;
     color: #e0e0e0;
     line-height: 1.5;
+    max-height: 40vh;
+    overflow-y: auto;
 }
 
 .highlight-line {
@@ -103,13 +104,14 @@
     line-height: 1.5;
 }
 
-/* PERSONALITY SECTION */
 .personality-section {
     padding: 0 0.5rem;
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
+
 
 .section-header {
     display: flex;
@@ -131,7 +133,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
-    height: 100%;
+    flex-grow: 1;
     overflow-y: auto;
     padding-right: 0.5rem;
 }
@@ -144,31 +146,32 @@
     transition: all 0.3s ease;
     border: 1px solid;
     cursor: pointer;
-    min-height: 180px;
+    min-height: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: scale(1); /* Reset the scale for non-selected cards */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: visible;
 }
 
-.personality-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 12px rgba(255, 133, 193, 0.25), 0 4px 10px rgba(0, 0, 0, 0.3);
-    border-color: #ff85c1;
-}
-
+/* Apply scaling only on the selected card */
 .personality-card.selected {
     background: linear-gradient(145deg, #2a2025, #251b20);
     box-shadow: 0 0 0 2px #ff85c1, 0 0 25px rgba(255, 133, 193, 0.4);
     border-color: #ff85c1;
+    transform: scale(1.1); /* Only scale the selected card */
 }
 
-.emoji {
-    font-size: 1.8rem;
-    display: block;
-    margin-bottom: 0.5rem;
-    transition: all 0.3s;
+.personality-card:hover {
+    transform: scale(1.05); /* Slight hover effect */
+    box-shadow: 0 0 12px rgba(255, 133, 193, 0.25), 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-color: #ff85c1;
 }
 
-.personality-card:hover .emoji {
-    transform: scale(1.1) rotate(5deg);
+.personality-card.selected:hover {
+    transform: scale(1.1); /* Don't change scale on hover if the card is selected */
 }
 
 .personality-card h3 {
@@ -178,11 +181,24 @@
     color: #ff85c1;
 }
 
+.personality-image {
+    width: 100%;
+    height: 160px;
+    object-fit: contain; /* Shows full image without cropping */
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 0.75rem;
+    max-width: 100%;
+}
+
 .personality-description {
     font-size: 0.9rem;
     color: #b0b0b0;
     line-height: 1.5;
     font-family: 'Inter', sans-serif;
+    margin-top: 0.5rem;
+    flex-grow: 1; /* Ensure it takes up the remaining space */
+    overflow: hidden; /* Prevents overflow of description text */
 }
 
 /* CHAT BUTTON */

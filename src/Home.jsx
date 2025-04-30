@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import './Home.css';
 
+import FBomberImage from './assets/Fbomber.png';
+import CorporateRageImage from './assets/ExhaustedEthan.jpg';
+import BudgetBlake from './assets/BudgetBlake.jpg';
+import EmoGirlImage from './assets/LunaEmoGirl.jpg';
+import QuietMournerImage from './assets/SilentSage.png';
+
 const Home = () => {
     const [selectedPersonality, setSelectedPersonality] = useState(null);
 
@@ -8,31 +14,31 @@ const Home = () => {
         {
             id: 1,
             name: 'Raging Ray',
-            emoji: '💣',
+            image: FBomberImage,
             description: 'Raw, unfiltered responses loaded with expletives and intense emotional validation. Perfect for uncensored fury without judgment.',
         },
         {
             id: 2,
             name: 'Exhausted Ethan',
-            emoji: '👔💢',
+            image: CorporateRageImage,
             description: 'Corporate Rage: Bitter, cynical office veteran validating workplace frustrations with sarcastic takedowns and dark office humor.',
         },
         {
             id: 3,
             name: 'Budget Blake',
-            emoji: '👴🏼💢',
-            description: 'Broke and Bitter: A system-hating hustler who understands the struggle of being broke and validates your frustrations with a touch of humor.',                                                
+            image: BudgetBlake,
+            description: 'Broke and Bitter: A system-hating hustler who understands the struggle of being broke and validates your frustrations with a touch of humor.',
         },
         {
             id: 4,
             name: 'Luna - Emo Girl',
-            emoji: '🖤',
+            image: EmoGirlImage,
             description: 'Darkly cynical, world-weary responses validating how everything is ultimately meaningless and disappointing.',
         },
         {
             id: 5,
-            name: 'The Quiet Mourner',
-            emoji: '🕊️',
+            name: 'Silent Sage',
+            image: QuietMournerImage,
             description: 'Gentle responses acknowledging deep pain without rushing the process. Validates that some losses can\'t be fixed, only carried.',
         }
     ];
@@ -41,6 +47,12 @@ const Home = () => {
         if (selectedPersonality) {
             window.location.href = `/personality/${selectedPersonality.id}`;
         }
+    };
+
+    const handleCardClick = (personality) => {
+        setSelectedPersonality(
+            selectedPersonality?.id === personality.id ? null : personality
+        );
     };
 
     return (
@@ -61,22 +73,19 @@ const Home = () => {
                     <div className="description-box">
                         <p className="highlight-line">Your judgment-free space to rant, vent, rage, grieve, or express any emotional state.</p>
                         <p className="privacy-line">100% private — we don't store your personal information or conversations.</p>
-                        <p className="highlight-line">Our AI validates your feelings, matches your mood, and never tries to fix your problems.</p>
-                        <p className="privacy-line">Express yourself freely — our AI responds with matching emotion, not unwanted advice.</p>
                         <p className="highlight-line">When real-world listeners aren't available or understanding, Rant AI is here for your unfiltered emotions.</p>
-                        <p className="privacy-line">Sometimes you just need someone to agree you're right — that's what we're here for.</p>
                     </div>
                 </div>
 
                 <div className="personality-section">
                     <div className="section-header">
-                        <h2 className="section-title">PICK YOUR RAGE BUDDY</h2>
+                        <h2 className="section-title">Pick a Personality below, then click Chat!</h2>
                         <button 
                             className={`chat-button ${selectedPersonality ? 'active' : ''}`}
                             onClick={handleStartChatting}
                             disabled={!selectedPersonality}
                         >
-                             Chat with AI.
+                            Chat with AI.
                         </button>
                     </div>
                     
@@ -85,11 +94,13 @@ const Home = () => {
                             <div 
                                 key={personality.id} 
                                 className={`personality-card ${selectedPersonality?.id === personality.id ? 'selected' : ''}`}
-                                onClick={() => setSelectedPersonality(personality)}
+                                onClick={() => handleCardClick(personality)}
                             >
-                                <span className="emoji">{personality.emoji}</span>
+                                <img src={personality.image} alt={personality.name} className="personality-image" />
                                 <h3>{personality.name}</h3>
-                                <p className="personality-description">{personality.description}</p>
+                                <div className="description-container">
+                                    <p className="personality-description">{personality.description}</p>
+                                </div>
                             </div>
                         ))}
                     </div>

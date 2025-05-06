@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 import FBomberImage from './assets/Fbomber.png';
@@ -9,6 +10,7 @@ import QuietMournerImage from './assets/SilentSage.png';
 
 const Home = () => {
     const [selectedPersonality, setSelectedPersonality] = useState(null);
+    const navigate = useNavigate();
 
     const personalities = [
         {
@@ -44,9 +46,8 @@ const Home = () => {
     ];
 
     const handleStartChatting = () => {
-        if (selectedPersonality) {
-            window.location.href = `/personality/${selectedPersonality.id}`;
-        }
+        if (!selectedPersonality) return;
+        navigate(`/personality/${selectedPersonality.id}`);
     };
 
     const handleCardClick = (personality) => {

@@ -1,15 +1,25 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from './firebase'; // Adjust path as needed
 import LoginImg from './assets/LoginImg2.png';
+import './Login.css';
 
 const Login = () => {
     const navigate = useNavigate();
 
-    const handleLogin = () => {
-        navigate('/home'); 
+    // const handleLogin = () => {
+    //     navigate('/home'); 
+    // };
+    const handleLogin = async () => {
+        try {
+            await signInWithPopup(auth, provider);
+            navigate('/home');
+        } catch (error) {
+            console.error("Login failed:", error);
+        }
     };
-
+    
     return (
         <div className="dark-theme">
             <header className="header">

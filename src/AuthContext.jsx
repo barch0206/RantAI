@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase'; // adjust path if needed
+import { signOut } from 'firebase/auth';
 
 const AuthContext = createContext();
 
@@ -24,3 +25,4 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+export const logout = () => signOut(auth);

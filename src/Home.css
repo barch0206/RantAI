@@ -266,6 +266,27 @@
     border-radius: 3px;
 }
 
+.logout-button {
+    background: linear-gradient(135deg, #ff7fa1, #c85eff); /* Brighter gradient */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    /* margin-top: 5px; */
+    align-self: flex-start;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.logout-button:hover {
+    background: linear-gradient(135deg, #ff5284, #a63fe0); /* Slightly brighter hover */
+}
+
+
 .loading-screen {
     display: flex;
     flex-direction: column;

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
+import { logout } from './AuthContext';
+
 
 import FBomberImage from './assets/Fbomber.png';
 import CorporateRageImage from './assets/ExhaustedEthan.jpg';

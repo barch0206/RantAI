@@ -1,19 +1,39 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from './firebase'; // Adjust path as needed
+import { auth, provider } from './firebase'; 
 import LoginImg from './assets/LoginImg2.png';
 import './Login.css';
+import { doc, setDoc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { db } from './firebase';
 
 const Login = () => {
     const navigate = useNavigate();
-
-    // const handleLogin = () => {
-    //     navigate('/home'); 
-    // };
     const handleLogin = async () => {
         try {
-            await signInWithPopup(auth, provider);
+            // await signInWithPopup(auth, provider);
+            // navigate('/home');
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+
+            const userDocRef = doc(db, "users", user.uid);
+            const existingDoc = await getDoc(userDocRef);
+
+            if (!existingDoc.exists()) {
+            // Create new user doc
+            await setDoc(userDocRef, {
+                name: user.displayName || "",
+                email: user.email || "",
+                createdAt: serverTimestamp(),
+                lastLogin: serverTimestamp(),
+                tokensCount: 500
+            });
+            } else {
+            // Update last login timestamp
+            await updateDoc(userDocRef, {
+                lastLogin: serverTimestamp()
+            });
+            }
             navigate('/home');
         } catch (error) {
             console.error("Login failed:", error);

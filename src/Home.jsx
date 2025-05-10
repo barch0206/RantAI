@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Home.css';
+import { auth } from './firebase';
 import { logout } from './AuthContext';
+import { getUserTokensCount } from './UserService';
+import './Home.css';
 
-
+// Personality images
 import FBomberImage from './assets/Fbomber.png';
 import CorporateRageImage from './assets/ExhaustedEthan.jpg';
 import BudgetBlake from './assets/BudgetBlake.jpg';
@@ -12,6 +14,8 @@ import QuietMournerImage from './assets/SilentSage.png';
 
 const Home = () => {
     const [selectedPersonality, setSelectedPersonality] = useState(null);
+    const [tokens, setTokens] = useState(0);
+    const [isCheckingTokens, setIsCheckingTokens] = useState(false);
     const navigate = useNavigate();
 
     const personalities = [
@@ -47,9 +51,53 @@ const Home = () => {
         }
     ];
 
-    const handleStartChatting = () => {
-        if (!selectedPersonality) return;
-        navigate(`/personality/${selectedPersonality.id}`);
+    // Fetch tokens on component mount and auth changes
+    useEffect(() => {
+        const fetchTokens = async () => {
+            const uid = auth.currentUser?.uid;
+            if (uid) {
+                try {
+                    const tokenCount = await getUserTokensCount(uid);
+                    setTokens(tokenCount);
+                } catch (error) {
+                    console.error("Failed to fetch tokens:", error);
+                }
+            }
+        };
+
+        const unsubscribe = auth.onAuthStateChanged(() => {
+            fetchTokens();
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const handleStartChatting = async () => {
+        if (!selectedPersonality || isCheckingTokens) return;
+        
+        setIsCheckingTokens(true);
+        try {
+            const uid = auth.currentUser?.uid;
+            if (!uid) {
+                navigate('/login');
+                return;
+            }
+            
+            const availableTokens = await getUserTokensCount(uid);
+            setTokens(availableTokens);
+            
+            if (availableTokens > 0) {
+                navigate(`/personality/${selectedPersonality.id}`);
+            } else {
+                alert("You're out of tokens. Redirecting to purchase page...");
+                navigate('/login');//change this later
+            }
+        } catch (error) {
+            console.error("Error checking tokens:", error);
+            alert("Failed to check token balance. Please try again.");
+        } finally {
+            setIsCheckingTokens(false);
+        }
     };
 
     const handleCardClick = (personality) => {
@@ -57,6 +105,7 @@ const Home = () => {
             selectedPersonality?.id === personality.id ? null : personality
         );
     };
+
     const handleLogout = async () => {
         await logout();
         navigate('/login');
@@ -68,9 +117,12 @@ const Home = () => {
                 <nav className="nav">
                     <span className="nav-item">About Us</span>
                     <span className="nav-item">Get Professional Help</span>
-                    <button className="nav-item logout-button" onClick={handleLogout}>
-            Logout
-        </button>
+                    <div className="nav-right">
+                        <span className="token-counter">Tokens: {tokens}</span>
+                        <button className="nav-item logout-button" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </div>
                 </nav>
             </header>
 
@@ -93,9 +145,9 @@ const Home = () => {
                         <button 
                             className={`chat-button ${selectedPersonality ? 'active' : ''}`}
                             onClick={handleStartChatting}
-                            disabled={!selectedPersonality}
+                            disabled={!selectedPersonality || isCheckingTokens}
                         >
-                            Chat with AI.
+                            {isCheckingTokens ? 'Checking Tokens...' : 'Chat with AI'}
                         </button>
                     </div>
                     
@@ -106,7 +158,12 @@ const Home = () => {
                                 className={`personality-card ${selectedPersonality?.id === personality.id ? 'selected' : ''}`}
                                 onClick={() => handleCardClick(personality)}
                             >
-                                <img src={personality.image} alt={personality.name} className="personality-image" />
+                                <img 
+                                    src={personality.image} 
+                                    alt={personality.name} 
+                                    className="personality-image" 
+                                    loading="lazy" // Optimized image loading
+                                />
                                 <h3>{personality.name}</h3>
                                 <div className="description-container">
                                     <p className="personality-description">{personality.description}</p>

@@ -305,6 +305,33 @@
     animation: spin 1s linear infinite;
     margin-bottom: 20px;
 }
+/* Add to Home.css */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+}
+
+.token-counter {
+    font-weight: 600;
+    color: #8a9bff;
+    font-size: 0.9rem;
+}
+
+.personality-image {
+    transition: transform 0.3s ease;
+}
+
+.personality-card:hover .personality-image {
+    transform: scale(1.03);
+}
+
+.chat-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

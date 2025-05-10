@@ -1,72 +1,114 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { auth } from './firebase';
+import { logout } from './AuthContext';
+import { getUserTokensCount } from './UserService';
 import './Home.css';
+
+// Personality images
+import FBomberImage from './assets/Fbomber.png';
+import CorporateRageImage from './assets/ExhaustedEthan.jpg';
+import BudgetBlake from './assets/BudgetBlake.jpg';
+import EmoGirlImage from './assets/LunaEmoGirl.jpg';
+import QuietMournerImage from './assets/SilentSage.png';
 
 const Home = () => {
     const [selectedPersonality, setSelectedPersonality] = useState(null);
+    const [tokens, setTokens] = useState(0);
+    const [isCheckingTokens, setIsCheckingTokens] = useState(false);
+    const navigate = useNavigate();
 
     const personalities = [
         {
             id: 1,
-            name: 'Grumpy Old Man',
-            emoji: '👴🏼💢',
-            description: 'Cranky "back in my day" complaints about modern life',
-            color: '#ff6b6b'
+            name: 'Raging Ray',
+            image: FBomberImage,
+            description: 'Raw, unfiltered responses loaded with expletives and intense emotional validation. Perfect for uncensored fury without judgment.',
         },
         {
             id: 2,
-            name: 'Passionate Activist',
-            emoji: '✊🏽',
-            description: 'Righteous indignation against injustice',
-            color: '#ff8e8e'
+            name: 'Exhausted Ethan',
+            image: CorporateRageImage,
+            description: 'Corporate Rage: Bitter, cynical office veteran validating workplace frustrations with sarcastic takedowns and dark office humor.',
         },
         {
             id: 3,
-            name: 'Corporate Burnout',
-            emoji: '👨🏽‍💼☕',
-            description: 'Sarcastic workplace humor',
-            color: '#ff9e76'
+            name: 'Budget Blake',
+            image: BudgetBlake,
+            description: 'Broke and Bitter: A system-hating hustler who understands the struggle of being broke and validates your frustrations with a touch of humor.',
         },
         {
             id: 4,
-            name: 'Rage Gamer',
-            emoji: '🎮💢',
-            description: 'Expletive-filled competitive frustration',
-            color: '#ff6b6b'
+            name: 'Luna - Emo Girl',
+            image: EmoGirlImage,
+            description: 'Darkly cynical, world-weary responses validating how everything is ultimately meaningless and disappointing.',
         },
         {
             id: 5,
-            name: 'Snarky Critic',
-            emoji: '🤨',
-            description: 'Biting, sarcastic commentary',
-            color: '#ff8e8e'
-        },
-        {
-            id: 6,
-            name: 'Traffic Ranter',
-            emoji: '🚗💨',
-            description: 'Road rage validation specialist',
-            color: '#ff9e76'
-        },
-        {
-            id: 7,
-            name: 'The Quiet Mourner',
-            emoji: '🕊️',
-            description: 'Gentle understanding for grief',
-            color: '#8a9bff'
-        },
-        {
-            id: 8,
-            name: 'Melancholy Poet',
-            emoji: '📜',
-            description: 'Contemplative expressions of sadness',
-            color: '#8a9bff'
+            name: 'Silent Sage',
+            image: QuietMournerImage,
+            description: 'Gentle responses acknowledging deep pain without rushing the process. Validates that some losses can\'t be fixed, only carried.',
         }
     ];
 
-    const handleStartChatting = () => {
-        if (selectedPersonality) {
-            window.location.href = `/personality/${selectedPersonality.id}`;
+    // Fetch tokens on component mount and auth changes
+    useEffect(() => {
+        const fetchTokens = async () => {
+            const uid = auth.currentUser?.uid;
+            if (uid) {
+                try {
+                    const tokenCount = await getUserTokensCount(uid);
+                    setTokens(tokenCount);
+                } catch (error) {
+                    console.error("Failed to fetch tokens:", error);
+                }
+            }
+        };
+
+        const unsubscribe = auth.onAuthStateChanged(() => {
+            fetchTokens();
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const handleStartChatting = async () => {
+        if (!selectedPersonality || isCheckingTokens) return;
+        
+        setIsCheckingTokens(true);
+        try {
+            const uid = auth.currentUser?.uid;
+            if (!uid) {
+                navigate('/login');
+                return;
+            }
+            
+            const availableTokens = await getUserTokensCount(uid);
+            setTokens(availableTokens);
+            
+            if (availableTokens > 0) {
+                navigate(`/personality/${selectedPersonality.id}`);
+            } else {
+                alert("You're out of tokens. Redirecting to purchase page...");
+                navigate('/login');//change this later
+            }
+        } catch (error) {
+            console.error("Error checking tokens:", error);
+            alert("Failed to check token balance. Please try again.");
+        } finally {
+            setIsCheckingTokens(false);
         }
+    };
+
+    const handleCardClick = (personality) => {
+        setSelectedPersonality(
+            selectedPersonality?.id === personality.id ? null : personality
+        );
+    };
+
+    const handleLogout = async () => {
+        await logout();
+        navigate('/login');
     };
 
     return (
@@ -75,6 +117,12 @@ const Home = () => {
                 <nav className="nav">
                     <span className="nav-item">About Us</span>
                     <span className="nav-item">Get Professional Help</span>
+                    <div className="nav-right">
+                        <span className="token-counter">Tokens: {tokens}</span>
+                        <button className="nav-item logout-button" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </div>
                 </nav>
             </header>
 
@@ -85,22 +133,21 @@ const Home = () => {
                         <span className="title-ai">AI</span>
                     </h1>
                     <div className="description-box">
-                        <p className="highlight-line">Your unfiltered emotional outlet for rage, grief, and everything in between</p>
-                        <p>• Scream into the void and hear it scream back •</p>
-                        <p>• No judgment • No advice • Just validation •</p>
-                        <p className="privacy-line">100% anonymous - your rants disappear like steam</p>
+                        <p className="highlight-line">Your judgment-free space to rant, vent, rage, grieve, or express any emotional state.</p>
+                        <p className="privacy-line">100% private — we don't store your personal information or conversations.</p>
+                        <p className="highlight-line">When real-world listeners aren't available or understanding, Rant AI is here for your unfiltered emotions.</p>
                     </div>
                 </div>
 
                 <div className="personality-section">
                     <div className="section-header">
-                        <h2 className="section-title">PICK YOUR RAGE BUDDY</h2>
+                        <h2 className="section-title">Pick a Personality below, then click Chat!</h2>
                         <button 
                             className={`chat-button ${selectedPersonality ? 'active' : ''}`}
                             onClick={handleStartChatting}
-                            disabled={!selectedPersonality}
+                            disabled={!selectedPersonality || isCheckingTokens}
                         >
-                            <span className="button-icon">💥</span> UNLEASH RAGE
+                            {isCheckingTokens ? 'Checking Tokens...' : 'Chat with AI'}
                         </button>
                     </div>
                     
@@ -109,12 +156,18 @@ const Home = () => {
                             <div 
                                 key={personality.id} 
                                 className={`personality-card ${selectedPersonality?.id === personality.id ? 'selected' : ''}`}
-                                onClick={() => setSelectedPersonality(personality)}
-                                style={{ borderColor: personality.color }}
+                                onClick={() => handleCardClick(personality)}
                             >
-                                <span className="emoji" style={{ color: personality.color }}>{personality.emoji}</span>
-                                <h3 style={{ color: personality.color }}>{personality.name}</h3>
-                                <p className="personality-description">{personality.description}</p>
+                                <img 
+                                    src={personality.image} 
+                                    alt={personality.name} 
+                                    className="personality-image" 
+                                    loading="lazy" // Optimized image loading
+                                />
+                                <h3>{personality.name}</h3>
+                                <div className="description-container">
+                                    <p className="personality-description">{personality.description}</p>
+                                </div>
                             </div>
                         ))}
                     </div>

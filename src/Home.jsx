@@ -55,6 +55,10 @@ const Home = () => {
             selectedPersonality?.id === personality.id ? null : personality
         );
     };
+    const handleLogout = async () => {
+        await logout();
+        navigate('/login');
+    };
 
     return (
         <div className="dark-theme">
@@ -62,6 +66,9 @@ const Home = () => {
                 <nav className="nav">
                     <span className="nav-item">About Us</span>
                     <span className="nav-item">Get Professional Help</span>
+                    <button className="nav-item logout-button" onClick={handleLogout}>
+            Logout
+        </button>
                 </nav>
             </header>
 

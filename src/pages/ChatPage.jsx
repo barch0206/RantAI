@@ -76,7 +76,7 @@ function ChatPage() {
     };
 
     const handleBackToHome = () => {
-        navigate('/');
+        navigate('/Home');
     };
 
     useEffect(() => {

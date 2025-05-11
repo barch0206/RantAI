@@ -85,7 +85,8 @@ function ChatPage() {
         }
         } catch (error) {
         console.error('Error:', error);
-        setMessages(prev => [...prev, { sender: 'bot', text: 'Oops, something went wrong.' }]);
+        alert("You're out of tokens. Redirecting to purchase page...");
+        navigate('/login');//change this later
         }
 
          finally {

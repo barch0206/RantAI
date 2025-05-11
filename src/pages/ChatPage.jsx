@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ChatPage.css';
+import { auth } from '../firebase';
+import { deductUserToken } from '../UserService';
 
 import FBomberImage from '../assets/Fbomber.png';
 import ExhaustedEthanImg from '../assets/ExhaustedEthan.jpg';
 import BudgetBlakeImg from '../assets/BudgetBlake.jpg';
 import LunaImg from '../assets/LunaEmoGirl.jpg';
 import MournerImg from '../assets/SilentSage.png';
-
+import CreepyChucklesImg from '../assets/CreepyChuckles.png';
 function ChatPage() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -38,6 +40,11 @@ function ChatPage() {
             id: 5,
             name: 'Silent Sage',
             image: MournerImg
+        },
+        {
+            id: 6,
+            name: 'Creepy Chuckles',
+            image: CreepyChucklesImg
         }
     ];
 
@@ -53,20 +60,27 @@ function ChatPage() {
         setMessages(prev => [...prev, { sender: 'user', text: userMessage }]);
         setInput('');
         setIsSending(true);
-
         try {
-            const response = await fetch('https://sturdy-system-6xx57wx469x3rpjq-5000.app.github.dev/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMessage, personality: parseInt(id) })
-            });
+        const response = await fetch('https://sturdy-system-6xx57wx469x3rpjq-5000.app.github.dev/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage, personality: parseInt(id) })
+        });
 
-            const data = await response.json();
-            setMessages(prev => [...prev, { sender: 'bot', text: data.reply }]);
+        const data = await response.json();
+        setMessages(prev => [...prev, { sender: 'bot', text: data.reply }]);
+
+        const uid = auth.currentUser?.uid;
+        if (uid) {
+        await deductUserToken(uid);
+        }
         } catch (error) {
-            console.error('Error:', error);
-            setMessages(prev => [...prev, { sender: 'bot', text: 'Oops, something went wrong.' }]);
-        } finally {
+        console.error('Error:', error);
+        alert("You're out of tokens. Redirecting to purchase page...");
+        navigate('/login');//change this later
+        }
+
+         finally {
             setIsSending(false);
         }
     };

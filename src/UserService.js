@@ -1,5 +1,7 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
+import { updateDoc } from "firebase/firestore";
+
 
 export const getUserTokensCount = async (uid) => {
   // Validate input
@@ -28,4 +30,22 @@ export const getUserTokensCount = async (uid) => {
     console.error(`Error fetching tokens for ${uid}:`, error);
     return 0;
   }
+};
+
+export const deductUserToken = async (uid) => {
+    const userRef = doc(db, 'users', uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+        const currentTokens = userSnap.data().tokensCount || 0;
+        if (currentTokens > 0) {
+            await updateDoc(userRef, {
+                tokensCount: currentTokens - 1
+            });
+        } else {
+            throw new Error("No tokens left to deduct.");
+        }
+    } else {
+        throw new Error("User not found.");
+    }
 };

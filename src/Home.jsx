@@ -11,6 +11,7 @@ import CorporateRageImage from './assets/ExhaustedEthan.jpg';
 import BudgetBlake from './assets/BudgetBlake.jpg';
 import EmoGirlImage from './assets/LunaEmoGirl.jpg';
 import QuietMournerImage from './assets/SilentSage.png';
+import CreepyChucklesImg from './assets/CreepyChuckles.png';
 
 const Home = () => {
     const [selectedPersonality, setSelectedPersonality] = useState(null);
@@ -48,6 +49,12 @@ const Home = () => {
             name: 'Silent Sage',
             image: QuietMournerImage,
             description: 'Gentle responses acknowledging deep pain without rushing the process. Validates that some losses can\'t be fixed, only carried.',
+        },
+        {
+            id: 6,
+            name: 'Creepy Chuckles',
+            image: CreepyChucklesImg,
+            description: 'This clown validates your darkest thoughts with inappropriate laughter and uncomfortably astute observations.',
         }
     ];
 

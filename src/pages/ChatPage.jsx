@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ChatPage.css';
+import { auth } from '../firebase';
+import { deductUserToken } from '../UserService';
 
 import FBomberImage from '../assets/Fbomber.png';
 import ExhaustedEthanImg from '../assets/ExhaustedEthan.jpg';
@@ -54,19 +56,39 @@ function ChatPage() {
         setInput('');
         setIsSending(true);
 
-        try {
-            const response = await fetch('https://sturdy-system-6xx57wx469x3rpjq-5000.app.github.dev/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMessage, personality: parseInt(id) })
-            });
+        // try {
+        //     const response = await fetch('https://sturdy-system-6xx57wx469x3rpjq-5000.app.github.dev/chat', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({ message: userMessage, personality: parseInt(id) })
+        //     });
 
-            const data = await response.json();
-            setMessages(prev => [...prev, { sender: 'bot', text: data.reply }]);
+        //     const data = await response.json();
+        //     setMessages(prev => [...prev, { sender: 'bot', text: data.reply }]);
+        // } catch (error) {
+        //     console.error('Error:', error);
+        //     setMessages(prev => [...prev, { sender: 'bot', text: 'Oops, something went wrong.' }]);
+        // }
+        try {
+        const response = await fetch('https://sturdy-system-6xx57wx469x3rpjq-5000.app.github.dev/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage, personality: parseInt(id) })
+        });
+
+        const data = await response.json();
+        setMessages(prev => [...prev, { sender: 'bot', text: data.reply }]);
+
+        const uid = auth.currentUser?.uid;
+        if (uid) {
+        await deductUserToken(uid);
+        }
         } catch (error) {
-            console.error('Error:', error);
-            setMessages(prev => [...prev, { sender: 'bot', text: 'Oops, something went wrong.' }]);
-        } finally {
+        console.error('Error:', error);
+        setMessages(prev => [...prev, { sender: 'bot', text: 'Oops, something went wrong.' }]);
+        }
+
+         finally {
             setIsSending(false);
         }
     };

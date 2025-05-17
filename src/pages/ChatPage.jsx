@@ -10,6 +10,8 @@ import BudgetBlakeImg from '../assets/BudgetBlake.jpg';
 import LunaImg from '../assets/LunaEmoGirl.jpg';
 import MournerImg from '../assets/SilentSage.png';
 import CreepyChucklesImg from '../assets/CreepyChuckles.png';
+import GinaImg from '../assets/Gina.png';
+
 function ChatPage() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -45,7 +47,13 @@ function ChatPage() {
             id: 6,
             name: 'Creepy Chuckles',
             image: CreepyChucklesImg
+        },
+        {
+            id: 7,
+            name: 'Gossip Gina',
+            image: GinaImg
         }
+
     ];
 
     const personality = personalities.find(p => p.id === parseInt(id));

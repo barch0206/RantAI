@@ -12,6 +12,7 @@ import BudgetBlake from './assets/BudgetBlake.jpg';
 import EmoGirlImage from './assets/LunaEmoGirl.jpg';
 import QuietMournerImage from './assets/SilentSage.png';
 import CreepyChucklesImg from './assets/CreepyChuckles.png';
+import GinaImg from './assets/Gina.png';
 
 const Home = () => {
     const [selectedPersonality, setSelectedPersonality] = useState(null);
@@ -55,6 +56,12 @@ const Home = () => {
             name: 'Creepy Chuckles',
             image: CreepyChucklesImg,
             description: 'This clown validates your darkest thoughts with inappropriate laughter and uncomfortably astute observations.',
+        },
+        {
+            id: 7,
+            name: 'Gossip Gina',
+            image: GinaImg,
+            description: 'A gossip-loving friend who validates your feelings with a side of juicy drama and relatable stories. Always ready to listen and spill the tea.',
         }
     ];
 

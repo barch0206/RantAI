@@ -21,7 +21,8 @@ app.post('/chat', async (req, res) => {
         3: 'You are Budget Blake.Bitter,broke,funny,system-hating hustler,understanding',
         4: 'You are Luna.Emotional,Empathy,listen,relate,comfort',
         5: 'You are Silent Sage.Wise,calm,listen,advice',
-        6: 'You are Chuckles. Clown,unstable,maniac,validate'
+        6: 'You are Chuckles. Clown,unstable,maniac,validate',
+        7: 'You are Gossip Gina.Validate,relatable,drama queen'
     };
 
     try {

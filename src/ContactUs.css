@@ -1,0 +1,121 @@
+.contact-page {
+    background-color: #0f0f0f;
+    color: #e0e0e0;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #ff85c133;
+}
+
+.contact-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contact-nav-item {
+    cursor: pointer;
+    font-weight: 600;
+    color: #ff85c1;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.contact-nav-item:hover {
+    color: #ff6bb5;
+    text-shadow: 0 0 10px rgba(255, 107, 181, 0.4);
+}
+
+.contact-main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+}
+
+.contact-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    line-height: 1;
+}
+
+.title-highlight {
+    color: #ff85c1;
+    text-shadow: 0 0 12px rgba(255, 133, 193, 0.5);
+    font-weight: 900;
+}
+
+.title-sub {
+    color: #8a9bff;
+    font-weight: 300;
+}
+
+.contact-box {
+    background: linear-gradient(145deg, #1a1a1a, #151515);
+    border-radius: 10px;
+    padding: 1.5rem;
+    border-left: 3px solid #8a9bff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.contact-box ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+}
+
+.contact-box li {
+    margin-bottom: 0.75rem;
+}
+
+.section-title {
+    font-weight: 700;
+    color: #8a9bff;
+    margin-top: 1.2rem;
+    font-size: 1rem;
+}
+
+.intro-text,
+.response-text,
+.closing-text {
+    margin-top: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.contact-list a,
+.contact-box a {
+    color: #ff85c1;
+    text-decoration: underline;
+}
+
+.back-button {
+    background-color: #ff85c1;
+    color: #121212;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+}
+
+.back-button:hover {
+    background-color: #ff9bcd;
+    transform: translateY(-2px);
+}

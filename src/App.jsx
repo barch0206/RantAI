@@ -3,8 +3,9 @@ import Login from './Login';
 import Home from './Home';
 import ChatPage from './pages/ChatPage';
 import ProtectedRoute from './ProtectedRoute';
-
-
+import ProfessionalHelp from './GetProfessionalHelp';
+import AboutUs from './AboutUs';
+import ContactUs from './ContactUs';
 
 function App() {
     return (
@@ -20,6 +21,9 @@ function App() {
                         <ProtectedRoute>
                             <ChatPage />
                         </ProtectedRoute>} />
+                <Route path="/professional-help" element={<ProfessionalHelp />} />
+                <Route path="/about-us" element={<AboutUs />} />
+                <Route path="/contact-us" element={<ContactUs />} />
             </Routes>
         </Router>
     );

@@ -125,12 +125,21 @@ const Home = () => {
         navigate('/login');
     };
 
+    const handleProfessionalHelp = () => {
+        navigate('/professional-help');
+    };
+    const handleAboutUs = () => {
+        navigate('/about-us');
+    };
+
     return (
         <div className="dark-theme">
             <header className="header">
                 <nav className="nav">
-                    <span className="nav-item">About Us</span>
-                    <span className="nav-item">Get Professional Help</span>
+                    <span className="nav-item" onClick={handleAboutUs}
+                        style={{ cursor: 'pointer' }} >About Us</span>
+                    <span className="nav-item" onClick={handleProfessionalHelp}
+                        style={{ cursor: 'pointer' }} >Get Professional Help</span>
                     <div className="nav-right">
                         <span className="token-counter">Tokens: {tokens}</span>
                         <button className="nav-item logout-button" onClick={handleLogout}>

@@ -26,7 +26,7 @@ const Login = () => {
                 email: user.email || "",
                 createdAt: serverTimestamp(),
                 lastLogin: serverTimestamp(),
-                tokensCount: 500
+                tokensCount: 25
             });
             } else {
             // Update last login timestamp
@@ -39,13 +39,27 @@ const Login = () => {
             console.error("Login failed:", error);
         }
     };
+
+    const handleProfessionalHelp = () => {
+        navigate('/professional-help');
+    };
     
+    const handleAboutUs = () => {
+        navigate('/about-us');
+    }
+    const handleContactUs = () => {
+        navigate('/contact-us');
+    }
+
     return (
         <div className="dark-theme">
             <header className="header">
                 <nav className="nav">
-                    <span className="nav-item">About Us</span>
-                    <span className="nav-item">Get Professional Help</span>
+                    <span className="nav-item" onClick={handleAboutUs}
+                        style={{ cursor: 'pointer' }} >About Us</span>
+                    <span className="nav-item" onClick={handleProfessionalHelp}
+                        style={{ cursor: 'pointer' }} >Get Professional Help</span>
+                    <span className="nav-item" onClick={handleContactUs} style={{cursor:'pointer'}}>Contact Us</span>
                 </nav>
             </header>
             <main className="main-content">

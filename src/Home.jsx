@@ -13,6 +13,7 @@ import EmoGirlImage from './assets/LunaEmoGirl.jpg';
 import QuietMournerImage from './assets/SilentSage.png';
 import CreepyChucklesImg from './assets/CreepyChuckles.png';
 import GinaImg from './assets/Gina.png';
+import VoidImg from './assets/Void.png';
 
 const Home = () => {
     const [selectedPersonality, setSelectedPersonality] = useState(null);
@@ -62,6 +63,12 @@ const Home = () => {
             name: 'Gossip Gina',
             image: GinaImg,
             description: 'A gossip-loving friend who validates your feelings with a side of juicy drama and relatable stories. Always ready to listen and spill the tea.',
+        },
+        {
+            id: 8,
+            name: 'The Void',
+            image: VoidImg,
+            description: 'A space that listens. No responses. No judgment. Just rant. We do not store or process any chats here. The chats get auto deleted once window is closed.',
         }
     ];
 
@@ -87,32 +94,41 @@ const Home = () => {
     }, []);
 
     const handleStartChatting = async () => {
-        if (!selectedPersonality || isCheckingTokens) return;
-        
-        setIsCheckingTokens(true);
-        try {
-            const uid = auth.currentUser?.uid;
-            if (!uid) {
-                navigate('/login');
-                return;
-            }
-            
-            const availableTokens = await getUserTokensCount(uid);
-            setTokens(availableTokens);
-            
-            if (availableTokens > 0) {
-                navigate(`/personality/${selectedPersonality.id}`);
-            } else {
-                alert("You're out of tokens. Redirecting to purchase page...");
-                navigate('/login');//change this later
-            }
-        } catch (error) {
-            console.error("Error checking tokens:", error);
-            alert("Failed to check token balance. Please try again.");
-        } finally {
-            setIsCheckingTokens(false);
+    if (!selectedPersonality) return;
+
+    // Skip token checks if "The Void" is selected
+    if (selectedPersonality.name === "The Void") {
+        navigate('../void');
+        return;
+    }
+
+    if (isCheckingTokens) return;
+
+    setIsCheckingTokens(true);
+    try {
+        const uid = auth.currentUser?.uid;
+        if (!uid) {
+            navigate('/login');
+            return;
         }
-    };
+
+        const availableTokens = await getUserTokensCount(uid);
+        setTokens(availableTokens);
+
+        if (availableTokens > 0) {
+            navigate(`/personality/${selectedPersonality.id}`);
+        } else {
+            alert("You're out of tokens. Redirecting to purchase page...");
+            navigate('/login'); // Update this to token purchase page later
+        }
+    } catch (error) {
+        console.error("Error checking tokens:", error);
+        alert("Failed to check token balance. Please try again.");
+    } finally {
+        setIsCheckingTokens(false);
+    }
+};
+
 
     const handleCardClick = (personality) => {
         setSelectedPersonality(

@@ -6,6 +6,7 @@ import ProtectedRoute from './ProtectedRoute';
 import ProfessionalHelp from './GetProfessionalHelp';
 import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
+import Void from './Void';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/professional-help" element={<ProfessionalHelp />} />
                 <Route path="/about-us" element={<AboutUs />} />
                 <Route path="/contact-us" element={<ContactUs />} />
+                <Route path="/void" element={<Void/>}/>
             </Routes>
         </Router>
     );

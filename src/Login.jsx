@@ -46,10 +46,13 @@ const Login = () => {
     
     const handleAboutUs = () => {
         navigate('/about-us');
-    }
+    };
     const handleContactUs = () => {
         navigate('/contact-us');
-    }
+    };
+    const handleVoid = () => {
+        navigate('/void');
+    };
 
     return (
         <div className="dark-theme">
@@ -60,6 +63,7 @@ const Login = () => {
                     <span className="nav-item" onClick={handleProfessionalHelp}
                         style={{ cursor: 'pointer' }} >Get Professional Help</span>
                     <span className="nav-item" onClick={handleContactUs} style={{cursor:'pointer'}}>Contact Us</span>
+                    <span className="nav-item void" onClick={handleVoid} style={{cursor:'pointer'}}>The Void</span>
                 </nav>
             </header>
             <main className="main-content">

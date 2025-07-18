@@ -12,5 +12,6 @@ Multiple AI Personalities**:
   - Emo Girl 🖤
   - The Quiet Mourner 🕯️
 
+and many more..
 
-Feel free to try it out!
+Feel free to try them out!

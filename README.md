@@ -4,9 +4,8 @@
 Pick a personality — from a grumpy old man to an f-bomb machine — and let your frustrations fly.
 
 
-## 💡 Features
 
-- 🔥 **Multiple AI Personalities**:
+Multiple AI Personalities**:
   - F-Bomb Machine 💣
   - Corporate Rage 💼
   - Grumpy Old Man 👴

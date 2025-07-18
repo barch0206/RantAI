@@ -1,3 +1,17 @@
-Emotional support Personalities built into a chatgpt wrapper with prompt engineering.
+# RantAI 😤🧠
+
+**RantAI** is a judgment-free AI chatbot with rage-fueled personalities, powered by OpenAI's `gpt-4.1-nano`.  
+Pick a personality — from a grumpy old man to an f-bomb machine — and let your frustrations fly.
+
+
+## 💡 Features
+
+- 🔥 **Multiple AI Personalities**:
+  - F-Bomb Machine 💣
+  - Corporate Rage 💼
+  - Grumpy Old Man 👴
+  - Emo Girl 🖤
+  - The Quiet Mourner 🕯️
+
 
 Feel free to try it out!
